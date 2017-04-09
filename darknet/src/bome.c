@@ -50,15 +50,13 @@ void yolo_detect(float thresh, float hier_thresh) {
     srand(2222222);
     int j;
     float nms = .4;
-    char buf[PATH_MAX];
-    char* input = buf;
     while (1) {
-        input = fgets(input, PATH_MAX, stdin);
+        char *input = fgetl(stdin);
         if (!input) {
             continue;
-        }
-        strip(input);
+        }        
         image im = load_image_color(input, 0, 0);
+        free(input);
         if (im.data==NULL){ //empty image
             free_image(im);          
             continue;
