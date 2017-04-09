@@ -21,3 +21,12 @@
 
 /facedetect/build/
 /facedetect/dist/
+darknet/Debug/darknet.log
+*.idb
+*.pdb
+*.tlog
+*.sdf
+*.suo
+*.ilk
+*.ipdb
+*.iobj
