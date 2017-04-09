@@ -30,3 +30,4 @@ darknet/Debug/darknet.log
 *.ilk
 *.ipdb
 *.iobj
+*.log
