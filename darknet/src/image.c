@@ -220,18 +220,6 @@ void draw_detections(image im, int num, float thresh, box *boxes, float **probs,
     }
 }
 
-void print_detections(int num, float thresh, float **probs, char **names, int classes)
-{
-    int i;
-    for(i = 0; i < num; ++i){
-        int class = max_index(probs[i], classes);
-        float prob = probs[i][class];
-        if(prob > thresh){
-            printf("%s: %.0f%%\n", names[class], prob*100);
-        }
-    }
-}
-
 void transpose_image(image im)
 {
     assert(im.w == im.h);
@@ -1269,8 +1257,8 @@ image load_image_stb(char *filename, int channels)
     int w, h, c;
     unsigned char *data = stbi_load(filename, &w, &h, &c, channels);
     if (!data) {
-        fprintf(stderr, "Cannot load image \"%s\"\nSTB Reason: %s\n", filename, stbi_failure_reason());
-        exit(0);
+        fprintf(stderr, "Cannot load image \"%s\" STB Reason: %s\n", filename, stbi_failure_reason());
+        return make_empty_image(0,0,0);
     }
     if(channels) c = channels;
     int i,j,k;
