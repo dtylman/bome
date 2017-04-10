@@ -773,7 +773,7 @@ pthread_t load_data_in_thread(load_args args)
     pthread_t thread;
     struct load_args *ptr = calloc(1, sizeof(struct load_args));
     *ptr = args;
-    if(pthread_create(&thread, 0, load_thread, ptr)) error("Thread creation failed");
+    if(pthread_create(&thread, 0, load_thread, ptr)) fatal("Thread creation failed");
     return thread;
 }
 
@@ -811,7 +811,7 @@ pthread_t load_data(load_args args)
     pthread_t thread;
     struct load_args *ptr = calloc(1, sizeof(struct load_args));
     *ptr = args;
-    if(pthread_create(&thread, 0, load_threads, ptr)) error("Thread creation failed");
+    if(pthread_create(&thread, 0, load_threads, ptr)) fatal("Thread creation failed");
     return thread;
 }
 

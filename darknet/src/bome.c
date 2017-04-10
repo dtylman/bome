@@ -11,6 +11,7 @@
 #include "network.h"
 #include "parser.h"
 #include "region_layer.h"
+#include "results.h"
 #include <limits.h>
 
 #define DATA_CFG "coco.data"
@@ -22,22 +23,17 @@
 // ./darknet detect cfg/yolo.cfg yolo.weights data/dog.jpg
 
 void print_detections(int num, float thresh, float **probs, char **names, int classes) {
-    printf("[");
-    int items = 0;
+    detection_result* dr = new_detection_results(MSG_SUCCESS, num);
     int i;
     for (i = 0; i < num; ++i) {
         int class = max_index(probs[i], classes);
         float prob = probs[i][class];
         if (prob > thresh) {
-            if (items>0){
-                printf(",");
-            }
-            items++;
-            //{"name":"lala","prob":30}            
-            printf("{\"name\":\"%s\",\"prob\": %.0f}", names[class], prob * 100);            
+            detection_result_add(dr, names[class], prob * 100);
         }
     }
-    printf("]\n");
+    print_results(dr);
+    free_results(dr);
 }
 
 void yolo_detect(float thresh, float hier_thresh) {
@@ -54,11 +50,11 @@ void yolo_detect(float thresh, float hier_thresh) {
         char *input = fgetl(stdin);
         if (!input) {
             continue;
-        }        
+        }
         image im = load_image_color(input, 0, 0);
         free(input);
-        if (im.data==NULL){ //empty image
-            free_image(im);          
+        if (im.data == NULL) { //empty image
+            free_image(im);
             continue;
         }
         image sized = letterbox_image(im, net.w, net.h);

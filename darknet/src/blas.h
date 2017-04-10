@@ -73,9 +73,9 @@ void scale_bias_gpu(float *output, float *biases, int batch, int n, int size);
 void add_bias_gpu(float *output, float *biases, int batch, int n, int size);
 void backward_bias_gpu(float *bias_updates, float *delta, int batch, int n, int size);
 
-void smooth_l1_gpu(int n, float *pred, float *truth, float *delta, float *error);
-void l2_gpu(int n, float *pred, float *truth, float *delta, float *error);
-void l1_gpu(int n, float *pred, float *truth, float *delta, float *error);
+void smooth_l1_gpu(int n, float *pred, float *truth, float *delta, float *fatal);
+void l2_gpu(int n, float *pred, float *truth, float *delta, float *fatal);
+void l1_gpu(int n, float *pred, float *truth, float *delta, float *fatal);
 void weighted_delta_gpu(float *a, float *b, float *s, float *da, float *db, float *ds, int num, float *dc);
 void weighted_sum_gpu(float *a, float *b, float *s, int num, float *c);
 void mult_add_into_gpu(int num, float *a, float *b, float *c);

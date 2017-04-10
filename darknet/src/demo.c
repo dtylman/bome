@@ -39,7 +39,7 @@ void *fetch_in_thread(void *ptr)
 {
     in = get_image_from_stream(cap);
     if(!in.data){
-        error("Stream closed.");
+        fatal("Stream closed.");
     }
     in_s = resize_image(in, net.w, net.h);
     return 0;
@@ -63,7 +63,7 @@ void *detect_in_thread(void *ptr)
     } else if (l.type == REGION){
         get_region_boxes(l, 1, 1, demo_thresh, probs, boxes, 0, 0, demo_hier_thresh);
     } else {
-        error("Last layer must produce detections\n");
+        fatal("Last layer must produce detections\n");
     }
     if (nms > 0) do_nms(boxes, probs, l.w*l.h*l.n, l.classes, nms);
     printf("\033[2J");
@@ -115,7 +115,7 @@ void demo(char *cfgfile, char *weightfile, float thresh, int cam_index, const ch
         cap = cvCaptureFromCAM(cam_index);
     }
 
-    if(!cap) error("Couldn't connect to webcam.\n");
+    if(!cap) fatal("Couldn't connect to webcam.\n");
 
     layer l = net.layers[net.n-1];
     int j;
@@ -161,8 +161,8 @@ void demo(char *cfgfile, char *weightfile, float thresh, int cam_index, const ch
     while(1){
         ++count;
         if(1){
-            if(pthread_create(&fetch_thread, 0, fetch_in_thread, 0)) error("Thread creation failed");
-            if(pthread_create(&detect_thread, 0, detect_in_thread, 0)) error("Thread creation failed");
+            if(pthread_create(&fetch_thread, 0, fetch_in_thread, 0)) fatal("Thread creation failed");
+            if(pthread_create(&detect_thread, 0, detect_in_thread, 0)) fatal("Thread creation failed");
 
             if(!prefix){
                 show_image(disp, "Demo");

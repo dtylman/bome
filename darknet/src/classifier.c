@@ -855,7 +855,7 @@ void threat_classifier(char *datacfg, char *cfgfile, char *weightfile, int cam_i
 
     int *indexes = calloc(top, sizeof(int));
 
-    if(!cap) error("Couldn't connect to webcam.\n");
+    if(!cap) fatal("Couldn't connect to webcam.\n");
     //cvNamedWindow("Threat", CV_WINDOW_NORMAL); 
     //cvResizeWindow("Threat", 512, 512);
     float fps = 0;
@@ -987,7 +987,7 @@ void gun_classifier(char *datacfg, char *cfgfile, char *weightfile, int cam_inde
 
     int *indexes = calloc(top, sizeof(int));
 
-    if(!cap) error("Couldn't connect to webcam.\n");
+    if(!cap) fatal("Couldn't connect to webcam.\n");
     cvNamedWindow("Threat Detection", CV_WINDOW_NORMAL); 
     cvResizeWindow("Threat Detection", 512, 512);
     float fps = 0;
@@ -1064,7 +1064,7 @@ void demo_classifier(char *datacfg, char *cfgfile, char *weightfile, int cam_ind
 
     int *indexes = calloc(top, sizeof(int));
 
-    if(!cap) error("Couldn't connect to webcam.\n");
+    if(!cap) fatal("Couldn't connect to webcam.\n");
     cvNamedWindow("Classifier", CV_WINDOW_NORMAL); 
     cvResizeWindow("Classifier", 512, 512);
     float fps = 0;

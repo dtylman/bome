@@ -35,7 +35,7 @@ void check_error(cudaError_t status)
         printf("CUDA Error: %s\n", s);
         assert(0);
         snprintf(buffer, 256, "CUDA Error: %s", s);
-        error(buffer);
+        fatal(buffer);
     } 
     if (status2 != cudaSuccess)
     {   
@@ -44,7 +44,7 @@ void check_error(cudaError_t status)
         printf("CUDA Error Prev: %s\n", s);
         assert(0);
         snprintf(buffer, 256, "CUDA Error Prev: %s", s);
-        error(buffer);
+        fatal(buffer);
     } 
 }
 
@@ -97,7 +97,7 @@ float *cuda_make_array(float *x, size_t n)
         status = cudaMemcpy(x_gpu, x, size, cudaMemcpyHostToDevice);
         check_error(status);
     }
-    if(!x_gpu) error("Cuda malloc failed\n");
+    if(!x_gpu) fatal("Cuda malloc failed\n");
     return x_gpu;
 }
 

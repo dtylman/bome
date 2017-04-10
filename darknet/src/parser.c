@@ -131,7 +131,7 @@ local_layer parse_local(list *options, size_params params)
     w = params.w;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before local layer must output image.");
+    if(!(h && w && c)) fatal("Layer before local layer must output image.");
 
     local_layer layer = make_local_layer(batch,h,w,c,n,size,stride,pad,activation);
 
@@ -152,7 +152,7 @@ layer parse_deconvolutional(list *options, size_params params)
     w = params.w;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before deconvolutional layer must output image.");
+    if(!(h && w && c)) fatal("Layer before deconvolutional layer must output image.");
     int batch_normalize = option_find_int_quiet(options, "batch_normalize", 0);
 
     layer l = make_deconvolutional_layer(batch,h,w,c,n,size,stride,activation, batch_normalize);
@@ -178,7 +178,7 @@ convolutional_layer parse_convolutional(list *options, size_params params)
     w = params.w;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before convolutional layer must output image.");
+    if(!(h && w && c)) fatal("Layer before convolutional layer must output image.");
     int batch_normalize = option_find_int_quiet(options, "batch_normalize", 0);
     int binary = option_find_int_quiet(options, "binary", 0);
     int xnor = option_find_int_quiet(options, "xnor", 0);
@@ -356,7 +356,7 @@ crop_layer parse_crop(list *options, size_params params)
     w = params.w;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before crop layer must output image.");
+    if(!(h && w && c)) fatal("Layer before crop layer must output image.");
 
     int noadjust = option_find_int_quiet(options, "noadjust",0);
 
@@ -378,7 +378,7 @@ layer parse_reorg(list *options, size_params params)
     w = params.w;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before reorg layer must output image.");
+    if(!(h && w && c)) fatal("Layer before reorg layer must output image.");
 
     layer layer = make_reorg_layer(batch,w,h,c,stride,reverse, flatten, extra);
     return layer;
@@ -395,7 +395,7 @@ maxpool_layer parse_maxpool(list *options, size_params params)
     w = params.w;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before maxpool layer must output image.");
+    if(!(h && w && c)) fatal("Layer before maxpool layer must output image.");
 
     maxpool_layer layer = make_maxpool_layer(batch,h,w,c,size,stride,padding);
     return layer;
@@ -408,7 +408,7 @@ avgpool_layer parse_avgpool(list *options, size_params params)
     h = params.h;
     c = params.c;
     batch=params.batch;
-    if(!(h && w && c)) error("Layer before avgpool layer must output image.");
+    if(!(h && w && c)) fatal("Layer before avgpool layer must output image.");
 
     avgpool_layer layer = make_avgpool_layer(batch,w,h,c);
     return layer;
@@ -479,7 +479,7 @@ route_layer parse_route(list *options, size_params params, network net)
 {
     char *l = option_find(options, "layers");   
     int len = strlen(l);
-    if(!l) error("Route Layer must specify input layers");
+    if(!l) fatal("Route Layer must specify input layers");
     int n = 1;
     int i;
     for(i = 0; i < len; ++i){
@@ -562,7 +562,7 @@ void parse_net_options(list *options, network *net)
     net->exposure = option_find_float_quiet(options, "exposure", 1);
     net->hue = option_find_float_quiet(options, "hue", 0);
 
-    if(!net->inputs && !(net->h && net->w && net->c)) error("No input parameters supplied");
+    if(!net->inputs && !(net->h && net->w && net->c)) fatal("No input parameters supplied");
 
     char *policy_s = option_find_str(options, "policy", "constant");
     net->policy = get_policy(policy_s);
@@ -574,7 +574,7 @@ void parse_net_options(list *options, network *net)
     } else if (net->policy == STEPS){
         char *l = option_find(options, "steps");   
         char *p = option_find(options, "scales");   
-        if(!l || !p) error("STEPS policy must have steps and scales in cfg file");
+        if(!l || !p) fatal("STEPS policy must have steps and scales in cfg file");
 
         int len = strlen(l);
         int n = 1;
@@ -615,14 +615,14 @@ network parse_network_cfg(char *filename)
 {
     list *sections = read_cfg(filename);
     node *n = sections->front;
-    if(!n) error("Config file has no sections");
+    if(!n) fatal("Config file has no sections");
     network net = make_network(sections->size - 1);
     net.gpu_index = gpu_index;
     size_params params;
 
     section *s = (section *)n->val;
     list *options = s->options;
-    if(!is_network(s)) error("First section must be [net] or [network]");
+    if(!is_network(s)) fatal("First section must be [net] or [network]");
     parse_net_options(options, &net);
 
     params.h = net.h;

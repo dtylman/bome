@@ -176,7 +176,7 @@ void demo_regressor(char *datacfg, char *cfgfile, char *weightfile, int cam_inde
         cap = cvCaptureFromCAM(cam_index);
     }
 
-    if(!cap) error("Couldn't connect to webcam.\n");
+    if(!cap) fatal("Couldn't connect to webcam.\n");
     cvNamedWindow("Regressor", CV_WINDOW_NORMAL); 
     cvResizeWindow("Regressor", 512, 512);
     float fps = 0;

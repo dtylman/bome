@@ -21,7 +21,7 @@ void demo_art(char *cfgfile, char *weightfile, int cam_index)
     cap = cvCaptureFromCAM(cam_index);
 
     char *window = "ArtJudgementBot9000!!!";
-    if(!cap) error("Couldn't connect to webcam.\n");
+    if(!cap) fatal("Couldn't connect to webcam.\n");
     cvNamedWindow(window, CV_WINDOW_NORMAL); 
     cvResizeWindow(window, 512, 512);
     int i;
