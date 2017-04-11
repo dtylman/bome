@@ -50,9 +50,9 @@ void print_results(detection_result* dr) {
     int i = 0;
     for (; i < dr->last; i++) {
         printf("{");
-        printf("\"name:\":\"%s\",", dr->objects[i].name);
-        printf("\"count:\":%d,", dr->objects[i].count);
-        printf("\"prob:\":%d", dr->objects[i].prob);
+        printf("\"name\":\"%s\",", dr->objects[i].name);
+        printf("\"count\":%d,", dr->objects[i].count);
+        printf("\"prob\":%d", dr->objects[i].prob);
         printf("}");
         if (i < dr->last - 1) {
             printf(",");
