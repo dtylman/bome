@@ -47,7 +47,7 @@ void yolo_detect(float thresh, float hier_thresh) {
     int j;
     float nms = .4;
     while (1) {
-        char *input = fgetl(stdin);
+        char *input = fgetl(stdin);        
         if (!input) {
             continue;
         }

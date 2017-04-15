@@ -60,6 +60,7 @@ void print_results(detection_result* dr) {
     }
     printf("]");
     printf("}");
+    fflush(stdout);
 }
 
 void free_results(detection_result* dr) {
