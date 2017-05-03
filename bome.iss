@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "bome"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2"
 #define MyAppExeName "nw.exe"
 #define GOPATH GetEnv('GOPATH')
 
@@ -30,7 +30,16 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\bootstrap\*"; DestDir: "{app}\bootstrap"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\css\*"; DestDir: "{app}\css"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\font-awesome\*"; DestDir: "{app}\font-awesome"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\js\*"; DestDir: "{app}\js"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\locales\*"; DestDir: "{app}\locales"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\app.exe"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\package.json"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\main.js"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#GOPATH}\src\github.com\dtylman\pictures\cmd\app\index.html"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+
 Source: "nwjs-v0.21.5-win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "bin\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
